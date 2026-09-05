@@ -15,9 +15,9 @@
 
 | Resource | Link |
 | :--- | :--- |
-| 🚀 **Live Web App** | [https://ai-growth-agentic-commerce.onrender.com](https://ai-growth-agentic-commerce.onrender.com) |
-| 📡 **API Health Check** | [https://ai-growth-agentic-commerce.onrender.com/api/health](https://ai-growth-agentic-commerce.onrender.com/api/health) |
-| 🤖 **Agent Discovery Manifest** | [https://ai-growth-agentic-commerce.onrender.com/.well-known/agent-catalog.json](https://ai-growth-agentic-commerce.onrender.com/.well-known/agent-catalog.json) |
+| 🚀 **Live Web App** | [https://ai-growth-agentic-commerce-arxq.onrender.com](https://ai-growth-agentic-commerce-arxq.onrender.com) |
+| 📡 **API Health Check** | [https://ai-growth-agentic-commerce-arxq.onrender.com/api/health](https://ai-growth-agentic-commerce-arxq.onrender.com/api/health) |
+| 🤖 **Agent Discovery Manifest** | [https://ai-growth-agentic-commerce-arxq.onrender.com/.well-known/agent-catalog.json](https://ai-growth-agentic-commerce-arxq.onrender.com/.well-known/agent-catalog.json) |
 | 🐙 **GitHub Repository** | [https://github.com/VipinSinghRajput70/AI-Growth-Agentic-Commerce](https://github.com/VipinSinghRajput70/AI-Growth-Agentic-Commerce) |
 
 ### ⚡ 1-Click Deploy
