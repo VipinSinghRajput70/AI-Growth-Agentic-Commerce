@@ -1,215 +1,199 @@
-# OmniAgent Commerce
+# 🤖 OmniAgent Commerce
 
-## Razorpay AI Buildathon — Track 01: AI Growth & Agentic Commerce
+### Razorpay AI Buildathon — Track 01: AI Growth & Agentic Commerce
+> **Grow the merchant’s revenue, and make them sellable to AI buyers.**
 
-> An AI commerce agent that helps customers discover products, intelligently grows merchant revenue through upselling and cross-selling, and safely completes transactions through Razorpay Test Mode with policy controls, approval gates, and a complete audit trail.
-
-**⚠️ Payments are executed using Razorpay Test Mode and do not involve real-money transactions.**
-
----
-
-## Problem Being Solved
-
-Track 01 asks us to solve two challenges simultaneously:
-
-1. **Grow the merchant's revenue** — using AI-powered product discovery, intelligent upselling, cross-selling, and bundle recommendations.
-2. **Make the merchant transactable by an AI buyer** — exposing a machine-readable agent discovery manifest and enabling autonomous AI-to-AI commerce.
-3. **Meet The Bar** — every money action must be explainable, bounded, gated, with a visible audit trail and graceful failure handling.
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-green?logo=node.js)](https://nodejs.org/)
+[![Razorpay](https://img.shields.io/badge/Razorpay-Test%20Mode-0C2340?logo=razorpay)](https://razorpay.com/)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-3.6%20Flash-4285F4?logo=google)](https://aistudio.google.com/)
+[![SQLite](https://img.shields.io/badge/Database-SQLite%20(WASM)-003B57?logo=sqlite)](https://sql.js.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
 
-## Architecture
+## 🌐 Live Links & Deployment
+
+| Resource | Link |
+| :--- | :--- |
+| 🚀 **Live Web App** | [https://ai-growth-agentic-commerce.onrender.com](https://ai-growth-agentic-commerce.onrender.com) |
+| 📡 **API Health Check** | [https://ai-growth-agentic-commerce.onrender.com/api/health](https://ai-growth-agentic-commerce.onrender.com/api/health) |
+| 🤖 **Agent Discovery Manifest** | [https://ai-growth-agentic-commerce.onrender.com/.well-known/agent-catalog.json](https://ai-growth-agentic-commerce.onrender.com/.well-known/agent-catalog.json) |
+| 🐙 **GitHub Repository** | [https://github.com/VipinSinghRajput70/AI-Growth-Agentic-Commerce](https://github.com/VipinSinghRajput70/AI-Growth-Agentic-Commerce) |
+
+### ⚡ 1-Click Deploy
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/VipinSinghRajput70/AI-Growth-Agentic-Commerce)
+
+---
+
+## 💡 Why Now?
+
+NPCI's **Universal Agent Protocol (UAP)** and the global protocol race (**ACP, AP2, x402**) make agent-to-agent commerce the open challenge of the year. Autonomous AI agents are becoming consumer buyers, making it imperative that merchants are **machine-discoverable**, **transactable by AI buyers**, and **protected by deterministic guardrails**.
+
+---
+
+## 🎯 What OmniAgent Commerce Does
+
+OmniAgent Commerce delivers on the two core pillars of Track 01 while surpassing "The Bar":
+
+1. **Grow Merchant Revenue**:
+   - Natural language conversational shopping powered by **Google Gemini 3.6 Flash**.
+   - Proactive **Intelligent Upselling** (suggesting higher-tier items with clear value rationale).
+   - Contextual **Cross-selling** (recommending complementary accessories).
+   - Automated **Bundle Deals** with dynamic discount savings.
+
+2. **Make Merchant Sellable to AI Buyers**:
+   - Standardized **Agent Discovery Manifest** (`/.well-known/agent-catalog.json`) exposing machine-readable catalog, policies, and commerce endpoints.
+   - Autonomous **AI Buyer Simulator** executing end-to-end multi-step purchases (discovery, search, inventory, discount negotiation, A2A checkout).
+   - A2A Checkout API (`/api/agent/a2a-checkout`) where AI buyers transact via backend commerce APIs without exposing Razorpay secrets.
+
+3. **Meet "The Bar" (Every Money Action Explainable, Bounded & Gated)**:
+   - **Bounded**: Deterministic guardrail limits (₹10,000 transaction cap, 20% max AI discount, daily spend caps).
+   - **Gated**: High-value transactions automatically trigger a merchant **Approval Gate**.
+   - **Explainable Audit Trail**: Persistent SQLite audit logging capturing actor, action, rationale, amount, and policy decisions.
+   - **Graceful Failures**: Interactive **Failure Lab** demonstrating resilient handling across 4 critical failure scenarios.
+
+---
+
+## 🏗️ System Architecture
 
 ```
-Customer / AI Buyer
-       ↓
-Commerce Agent (LLM + Tool Calling)
-       ↓
-Catalog / Revenue / Cart Tools
-       ↓
-Deterministic Policy / Guardrail Engine (FINAL AUTHORITY)
-       ↓
-Approval Gate (if limit exceeded)
-       ↓
-Razorpay Service (Backend-only, Test Mode)
-       ↓
-Server-side HMAC Verification + Webhook Handler
-       ↓
-Order State Machine (CART → PAID)
-       ↓
-Persistent Audit Trail (SQLite)
+                      +-----------------------------+
+                      |   Customer / AI Buyer       |
+                      +--------------+--------------+
+                                     |
+                                     v
+                 +---------------------------------------+
+                 |  OmniAgent Commerce Engine            |
+                 |  (Gemini 3.6 Flash + Function Calling)|
+                 +-------------------+-------------------+
+                                     |
+                         [Proposes Money Action]
+                                     |
+                                     v
+                 +---------------------------------------+
+                 |   Deterministic Policy Guardrail      |
+                 |       (FINAL AUTHORITY ENGINE)        |
+                 +-------------------+-------------------+
+                                     |
+                  +------------------+------------------+
+                  |                                     |
+       [Within Policy Bounds]                 [Exceeds Autonomous Limit]
+                  |                                     |
+                  v                                     v
+    +---------------------------+         +---------------------------+
+    | Razorpay Service          |         | Human Merchant Gate       |
+    | (Backend-only, Test Mode) |         | (Approve / Reject Action) |
+    +-------------+-------------+         +-------------+-------------+
+                  |                                     | (If Approved)
+                  +------------------+------------------+
+                                     |
+                                     v
+                 +---------------------------------------+
+                 | Dual-Path Payment Verification        |
+                 | (HMAC SHA-256 Server + Webhook Verify)|
+                 +-------------------+-------------------+
+                                     |
+                                     v
+                 +---------------------------------------+
+                 | Order State Machine & Audit Trail     |
+                 | (SQLite: CREATED -> PAID | REJECTED)  |
+                 +---------------------------------------+
 ```
 
-**Key principle:** The LLM can PROPOSE actions but NEVER directly modifies prices, creates payments, or accesses Razorpay credentials.
+> 🔒 **Security Principle**: The LLM can **PROPOSE** actions but **NEVER** directly modifies database prices, creates orders, or accesses Razorpay API credentials.
 
 ---
 
-## Features
+## 🧪 The Failure Lab (Graceful Error Recovery)
 
-### AI Revenue Growth
-- **Conversational Commerce** — Natural language product discovery via OpenAI tool-calling
-- **Intelligent Upselling** — Higher-tier product suggestions with value explanations
-- **Cross-selling** — Related product recommendations based on catalog relationships
-- **Bundle Offers** — Complementary product bundles with discount savings
+OmniAgent Commerce includes an interactive **Failure Lab** demonstrating 4 real-world failure scenarios:
 
-### Agentic Commerce
-- **Agent Discovery Manifest** — `/.well-known/agent-catalog.json` for AI buyer discoverability
-- **AI Buyer Simulator** — End-to-end autonomous buyer using real backend APIs
-- **A2A Checkout API** — Programmatic checkout endpoint for external AI agents
-
-### Safety & Explainability
-- **Deterministic Guardrail Engine** — Transaction limits (₹10,000), discount caps (20%), daily spend caps (₹50,000)
-- **Human Approval Gate** — Merchant Approve/Reject for transactions exceeding limits
-- **Dual-Path Payment Verification** — Server HMAC + Webhook signature verification
-- **Webhook Event Idempotency** — Duplicate webhook events safely ignored
-- **Order Idempotency** — Payload-validated deduplication (key + cart + amount + session)
-- **Order State Machine** — Strict states from CART to PAID with failure states
-- **Live Audit Trail** — Concise decision rationale without hidden LLM chain-of-thought
-- **Failure Lab** — 4 interactive failure scenarios handled gracefully
+| Failure Scenario | Problem Simulated | Graceful Recovery Mechanism |
+| :--- | :--- | :--- |
+| **1. Budget Violation** | AI attempts ₹15,000 order against ₹10,000 policy limit | Blocked by deterministic policy; gated to merchant approval queue without crashing. |
+| **2. Timeout & Duplicate** | Network drops after order submission; duplicate request sent | Idempotency engine (hash of cart + amount + session) identifies duplicate and reuses existing order without duplicate charge. |
+| **3. Inventory Stockout** | Target product inventory drops to 0 during checkout | Order halted safely; AI agent automatically suggests top alternative products in stock. |
+| **4. HMAC Tampering** | Malicious payload altered with forged payment signature | Server-side HMAC SHA-256 fails verification; order marked `PAYMENT_FAILED` and security audit log is recorded. |
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Backend | Node.js, Express.js |
-| Database | SQLite (better-sqlite3) |
-| AI Agent | OpenAI API (gpt-4o-mini) with function/tool calling |
-| Payments | Razorpay Node SDK (Test Mode) |
-| Frontend | HTML, CSS, Vanilla JavaScript |
-| Design | Custom Razorpay Dark Obsidian Design System |
+- **Backend**: Node.js, Express.js
+- **AI Engine**: Google Gemini 3.6 Flash (Function Calling / Tool Use)
+- **Payments**: Razorpay Node.js SDK (Test Mode)
+- **Database**: SQLite (via `sql.js` WebAssembly — 100% portable, no C++ compilation dependencies)
+- **Frontend**: Vanilla HTML5, CSS3, JavaScript (Razorpay Obsidian Dark Design System)
+- **Security**: Server-side HMAC SHA-256 verification, Webhook signature validation, Payload-validated Idempotency
 
 ---
 
-## Setup Instructions
+## 🚀 Local Development Setup
 
 ### 1. Prerequisites
-- Node.js 18+ installed
-- Razorpay Test Mode account ([Sign up free](https://dashboard.razorpay.com/))
-- OpenAI API key ([Get key](https://platform.openai.com/api-keys))
+- [Node.js](https://nodejs.org/) v18 or higher
+- [Razorpay Test Account](https://dashboard.razorpay.com/) (Free)
+- [Google Gemini API Key](https://aistudio.google.com/app/apikey) (Free Tier)
 
-### 2. Clone & Install
-
+### 2. Clone Repository
 ```bash
-cd "AI Growth & Agentic Commerce"
+git clone https://github.com/VipinSinghRajput70/AI-Growth-Agentic-Commerce.git
+cd AI-Growth-Agentic-Commerce
+```
+
+### 3. Install Dependencies
+```bash
 npm install
 ```
 
-### 3. Configure Environment
-
-Copy `.env.example` to `.env` and add your credentials:
-
+### 4. Configure Environment
+Create a `.env` file in the root directory:
 ```env
-RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxx
-RAZORPAY_KEY_SECRET=xxxxxxxxxxxxxxxxxxxx
-OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
+# Razorpay Test Mode Keys (FREE from dashboard.razorpay.com)
+RAZORPAY_KEY_ID=rzp_test_your_key_id
+RAZORPAY_KEY_SECRET=your_key_secret
+
+# Google Gemini API Key (FREE from aistudio.google.com)
+GEMINI_API_KEY=your_gemini_api_key
+
+# Server
 PORT=3000
+NODE_ENV=development
 ```
 
-### 4. Getting Razorpay Test Keys
-
-1. Go to [Razorpay Dashboard](https://dashboard.razorpay.com/)
-2. Switch to **Test Mode** (toggle at top)
-3. Go to **Settings → API Keys**
-4. Generate a new key pair
-5. Copy `Key Id` and `Key Secret` to `.env`
-
-### 5. Start the Server
-
+### 5. Start the Application
 ```bash
 npm start
 ```
-
-The database is automatically initialized on first run.
-
-### 6. Open the Application
-
-Navigate to [http://localhost:3000](http://localhost:3000)
+Open **[http://localhost:3000](http://localhost:3000)** in your browser!
 
 ---
 
-## API Documentation
+## 📡 API Reference
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/health` | GET | System health and credential status |
-| `/.well-known/agent-catalog.json` | GET | Agent Discovery Manifest |
-| `/api/catalog` | GET | All products |
-| `/api/catalog/search?q=...&max_price=...` | GET | Search products |
-| `/api/catalog/product/:id` | GET | Product details |
-| `/api/catalog/inventory/:id` | GET | Inventory check |
-| `/api/cart/add` | POST | Add to cart |
-| `/api/cart/:session_id` | GET | Get cart |
-| `/api/agent/chat` | POST | AI Commerce Agent |
-| `/api/agent/a2a-checkout` | POST | AI Buyer checkout |
-| `/api/razorpay/create-order` | POST | Create Razorpay order |
-| `/api/razorpay/verify-payment` | POST | HMAC payment verification |
-| `/api/webhooks/razorpay` | POST | Webhook handler |
-| `/api/policy` | GET/PUT | Merchant policies |
-| `/api/policy/check` | POST | Policy evaluation |
-| `/api/policy/check-discount` | POST | Discount evaluation |
-| `/api/approvals/pending` | GET | Pending approvals |
-| `/api/approvals/decide` | POST | Approve/Reject |
-| `/api/audit-trail` | GET | Audit log |
-| `/api/dashboard/metrics` | GET | Revenue metrics |
-| `/api/failure-lab/*` | POST | Failure scenarios |
+### Agentic Commerce
+- `GET /.well-known/agent-catalog.json` — Machine-readable merchant discovery manifest
+- `POST /api/agent/chat` — Conversational AI shopping assistant
+- `POST /api/agent/a2a-checkout` — Programmatic checkout endpoint for autonomous AI buyers
+
+### Catalog & Revenue
+- `GET /api/catalog` — List all products with inventory & pricing
+- `GET /api/catalog/search?q={query}&max_price={price}` — Full-text product search
+- `GET /api/catalog/inventory/:id` — Real-time stock status
+
+### Safety & Guardrails
+- `POST /api/policy/check` — Guardrail transaction evaluation
+- `POST /api/policy/check-discount` — Discount negotiation evaluation
+- `GET /api/audit-trail` — Live explainable audit trail logs
+- `GET /api/dashboard/metrics` — Merchant revenue & AI growth metrics
+
+### Razorpay Payments
+- `POST /api/razorpay/create-order` — Guardrail-bounded Razorpay order creation
+- `POST /api/razorpay/verify-payment` — Server-side HMAC SHA-256 signature verification
+- `POST /api/webhooks/razorpay` — Webhook handler with signature & event idempotency
 
 ---
 
-## Demo Flow for Judges
-
-### Happy Path
-1. Customer: "I need running shoes under ₹3000"
-2. AI searches catalog → recommends products
-3. AI suggests cross-sell (socks, bottle)
-4. Cart updated → Policy check: ALLOWED
-5. Razorpay Test Checkout opens
-6. Complete test payment
-7. Server verifies HMAC signature
-8. Order marked PAID → Audit trail updated
-
-### Failure Demonstrations
-1. **Budget Violation** — ₹15,000 transaction → BLOCKED → Approval required
-2. **Timeout & Idempotency** — Duplicate prevented → Safe retry
-3. **Inventory Failure** — Out of stock → Alternative recommended
-4. **Invalid Signature** — Tampered payload → Verification rejected
-
----
-
-## Safety Architecture
-
-```
-LLM Agent ──→ PROPOSE action ──→ Guardrail Engine (deterministic)
-                                        ↓
-                                  ALLOW / BLOCK / REQUIRE APPROVAL
-                                        ↓
-                                  Razorpay Service (backend-only)
-                                        ↓
-                                  HMAC Verification
-                                        ↓
-                                  Audit Trail (SQLite)
-```
-
-- LLM never receives Razorpay secret credentials
-- LLM never directly calls Razorpay APIs
-- LLM never modifies final prices
-- Guardrail engine is the FINAL AUTHORITY
-- Frontend payment success is NEVER trusted
-
----
-
-## Screens
-
-1. **AI Commerce** — Conversational shopping with tool-calling agent
-2. **Cart & Checkout** — Cart management with Razorpay Test Checkout
-3. **Growth Dashboard** — Revenue metrics (labeled Demo/Simulated)
-4. **Safety & Audit** — Policy config, approvals, live audit trail
-5. **AI Buyer** — Autonomous buyer using real backend APIs
-6. **Failure Lab** — 4 interactive failure test scenarios
-
----
-
-## License
-
-MIT
+## 📄 License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
