@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniAgent Commerce — AI Growth & Agentic Commerce</title>
+  <meta name="description" content="AI-powered commerce engine with Razorpay Test Mode integration. Conversational shopping, upselling, cross-selling, and agentic commerce.">
+  <meta property="og:title" content="OmniAgent Commerce">
+  <meta property="og:description" content="AI Growth & Agentic Commerce Engine — Razorpay AI Buildathon Track 01">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>🤖</text></svg>">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Setup Warning Banner -->
+    <div id="setupBanner" class="setup-banner">
+      <strong>⚠️ Setup Required:</strong> <span id="setupMessage"></span>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+      <div class="nav-brand">
+        <div class="nav-brand-icon">🤖</div>
+        <span class="nav-brand-text">OmniAgent Commerce</span>
+        <span class="nav-brand-badge">Test Mode</span>
+      </div>
+
+      <div class="nav-tabs" id="navTabs">
+        <div class="nav-tab active" data-screen="commerce">
+          <span class="nav-tab-icon">💬</span> AI Commerce
+        </div>
+        <div class="nav-tab" data-screen="cart">
+          <span class="nav-tab-icon">🛒</span> Cart & Checkout
+          <span id="cartBadge" class="badge badge-info" style="display:none">0</span>
+        </div>
+        <div class="nav-tab" data-screen="dashboard">
+          <span class="nav-tab-icon">📊</span> Growth Dashboard
+        </div>
+        <div class="nav-tab" data-screen="safety">
+          <span class="nav-tab-icon">🛡️</span> Safety & Audit
+        </div>
+        <div class="nav-tab" data-screen="buyer">
+          <span class="nav-tab-icon">🤖</span> AI Buyer
+        </div>
+        <div class="nav-tab" data-screen="failure">
+          <span class="nav-tab-icon">🧪</span> Failure Lab
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Screen 1: AI Commerce Chat -->
+      <section id="screen-commerce" class="screen active">
+        <div class="chat-container">
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-message assistant">
+              <div class="chat-avatar">🤖</div>
+              <div class="chat-bubble">
+                Welcome to <strong>OmniStore</strong>! I'm your AI shopping assistant. I can help you discover products, find the best deals, and complete your purchase securely through Razorpay. 🛍️<br><br>
+                Try asking me:<br>
+                • "Show me running shoes under ₹3000"<br>
+                • "I need a gaming setup under ₹5000"<br>
+                • "What fitness products do you have?"
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ask about products, get recommendations..." autocomplete="off">
+            <button id="chatSend" class="btn btn-primary">Send</button>
+            <button id="chatReset" class="btn btn-secondary btn-sm" title="Reset conversation">🔄</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: Cart & Checkout -->
+      <section id="screen-cart" class="screen">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Shopping Cart</h1>
+            <p class="section-subtitle">Review your items and proceed to Razorpay Test Checkout</p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div id="cartItemsList" class="cart-items-list">
+              <div class="empty-state">
+                <div class="empty-state-icon">🛒</div>
+                <div class="empty-state-text">Your cart is empty</div>
+                <div class="empty-state-sub">Use the AI Commerce assistant to discover and add products</div>
+              </div>
+            </div>
+
+            <!-- Cross-sell Section -->
+            <div id="crossSellSection" class="cross-sell-section" style="display:none">
+              <div class="cross-sell-title">✨ Recommended for You</div>
+              <div id="crossSellItems"></div>
+            </div>
+          </div>
+
+          <div>
+            <div id="cartSummary" class="cart-summary" style="display:none">
+              <h3 style="margin-bottom:var(--space-md);font-size:1rem;">Order Summary</h3>
+              <div id="cartSummaryRows"></div>
+              <div id="policyStatus" style="margin-top:var(--space-md)"></div>
+              <button id="checkoutBtn" class="btn btn-primary btn-lg" style="width:100%;margin-top:var(--space-md)" disabled>
+                Proceed to Razorpay Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Merchant Growth Dashboard -->
+      <section id="screen-dashboard" class="screen">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Merchant Growth Dashboard</h1>
+            <p class="section-subtitle">Demo / Simulated Analytics — Revenue metrics and AI influence</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="window.MerchantDashboard.refresh()">🔄 Refresh</button>
+        </div>
+
+        <div class="metrics-grid" id="dashboardMetrics"></div>
+
+        <div class="two-col-equal">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Orders by Status</span>
+            </div>
+            <div id="ordersByState"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">AI Influence Summary</span>
+            </div>
+            <div id="aiInfluence"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Safety & Audit Center -->
+      <section id="screen-safety" class="screen">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Safety & Audit Center</h1>
+            <p class="section-subtitle">Merchant policies, approval gate, and live audit trail</p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <!-- Pending Approvals -->
+            <div class="card" style="margin-bottom:var(--space-lg)">
+              <div class="card-header">
+                <span class="card-title">⏳ Pending Approvals</span>
+                <button class="btn btn-secondary btn-sm" onclick="window.AuditView.refreshApprovals()">Refresh</button>
+              </div>
+              <div id="pendingApprovals">
+                <div class="empty-state" style="padding:var(--space-lg)">
+                  <div class="empty-state-text" style="font-size:0.8125rem">No pending approvals</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Audit Trail -->
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">📋 Live Audit Trail</span>
+                <button class="btn btn-secondary btn-sm" onclick="window.AuditView.refresh()">Refresh</button>
+              </div>
+              <div id="auditTimeline" class="audit-timeline">
+                <div class="empty-state" style="padding:var(--space-lg)">
+                  <div class="empty-state-text" style="font-size:0.8125rem">No audit events yet</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Policy Configuration -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">⚙️ Merchant Policy Settings</span>
+              </div>
+              <div id="policySettings"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: AI Buyer Simulator -->
+      <section id="screen-buyer" class="screen">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">AI Buyer Simulator</h1>
+            <p class="section-subtitle">End-to-end autonomous AI buyer using real backend APIs</p>
+          </div>
+          <button id="startBuyerBtn" class="btn btn-primary" onclick="window.AIBuyer.start()">▶️ Start AI Buyer</button>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">🤖 AI Buyer Execution Steps</span>
+              </div>
+              <div id="buyerSteps" class="buyer-steps"></div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">📡 API Calls & Responses</span>
+              </div>
+              <div id="buyerLog" style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-secondary);max-height:500px;overflow-y:auto;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 6: Failure Lab -->
+      <section id="screen-failure" class="screen">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">🧪 Failure Lab</h1>
+            <p class="section-subtitle">Test 4 failure scenarios — see how OmniAgent handles them gracefully</p>
+          </div>
+        </div>
+
+        <div class="failure-grid" id="failureGrid"></div>
+      </section>
+
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+  </div>
+
+  <!-- Razorpay Checkout Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <!-- Application Scripts -->
+  <script src="/js/app.js"></script>
+  <script src="/js/agentChat.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/checkout.js"></script>
+  <script src="/js/merchantDashboard.js"></script>
+  <script src="/js/policyView.js"></script>
+  <script src="/js/auditView.js"></script>
+  <script src="/js/aiBuyer.js"></script>
+  <script src="/js/failureLab.js"></script>
+</body>
+</html>
