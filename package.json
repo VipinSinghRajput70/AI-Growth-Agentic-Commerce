@@ -1,7 +1,7 @@
 {
   "name": "omniagent-commerce",
   "version": "1.0.0",
-  "description": "OmniAgent Commerce — AI Growth & Agentic Commerce Engine for Razorpay AI Buildathon Track 01",
+  "description": "OmniAgent Commerce — Autonomous AI-Powered Commerce Engine for Intelligent Merchant Growth and Agent-to-Agent (A2A) Transactions",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
@@ -12,9 +12,10 @@
     "razorpay",
     "ai",
     "agentic-commerce",
-    "buildathon"
+    "e-commerce",
+    "gemini"
   ],
-  "author": "",
+  "author": "Vipin Singh Rajput",
   "license": "MIT",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

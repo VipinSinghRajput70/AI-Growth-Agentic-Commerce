@@ -1,6 +1,6 @@
 /**
  * OmniAgent Commerce — Express Server Entry Point
- * Razorpay AI Buildathon Track 01: AI Growth & Agentic Commerce
+ * Autonomous AI-Powered Commerce Engine
  */
 
 require('dotenv').config();
@@ -161,7 +161,7 @@ async function startServer() {
       console.log('');
       console.log('╔══════════════════════════════════════════════════════════╗');
       console.log('║          OmniAgent Commerce — Server Started            ║');
-      console.log('║   Razorpay AI Buildathon Track 01: AI Growth & Agentic  ║');
+      console.log('║        Autonomous AI Growth & Agentic Commerce Engine    ║');
       console.log('╠══════════════════════════════════════════════════════════╣');
       console.log(`║  🌐 App:       http://localhost:${PORT}                    ║`);
       console.log(`║  📡 API:       http://localhost:${PORT}/api/health          ║`);
