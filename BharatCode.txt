@@ -1,0 +1,5 @@
+BharatCode Hackathon Submission
+Project: OmniAgent Commerce
+Author: Vipin Singh Rajput
+Repository: https://github.com/VipinSinghRajput70/AI-Growth-Agentic-Commerce
+Timestamp: 2026-11-10
